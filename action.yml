@@ -23,7 +23,7 @@ runs:
         echo "mold ${{ inputs.mold-version }}"
         if [ "$(whoami)" = root ]; then SUDO=; else SUDO=sudo; fi
         brew install mold
-        test ${{ inputs.make-default }} = true -a "$SUDO ln -sf /opt/homebrew/bin/mold /opt/homebrew/bin/ld"; true
+        if [ ${{ inputs.make-default }} = true ]; then $SUDO ln -sf /opt/homebrew/bin/mold /opt/homebrew/bin/ld; fi
         realpath /opt/homebrew/bin/ld
         ls /opt/homebrew/bin
         which ld
