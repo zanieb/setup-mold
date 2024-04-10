@@ -18,3 +18,11 @@ runs:
         test ${{ inputs.make-default }} = true -a "$(realpath /usr/bin/ld)" != /usr/local/bin/mold && $SUDO ln -sf /usr/local/bin/mold "$(realpath /usr/bin/ld)"; true
       shell: bash
       if: runner.os == 'linux'
+    - run: |
+        set -x
+        echo "mold ${{ inputs.mold-version }}"
+        if [ "$(whoami)" = root ]; then SUDO=; else SUDO=sudo; fi
+        brew install mold
+        test ${{ inputs.make-default }} = true -a "$(realpath /usr/bin/ld)" != /opt/homebrew/bin/mold && $SUDO ln -sf /opt/homebrew/bin/mold "$(realpath /usr/bin/ld)"; true
+      shell: bash
+      if: runner.os == 'macos'
