@@ -23,6 +23,7 @@ runs:
         echo "mold ${{ inputs.mold-version }}"
         if [ "$(whoami)" = root ]; then SUDO=; else SUDO=sudo; fi
         brew install mold
-        test ${{ inputs.make-default }} = true -a "$(realpath /usr/bin/ld)" != /opt/homebrew/bin/mold && $SUDO ln -sf /opt/homebrew/bin/mold "$(realpath /usr/bin/ld)"; true
+        test ${{ inputs.make-default }} = true -a "$SUDO ln -sf /opt/homebrew/bin/mold /opt/homebrew/bin/ld"; true
+        echo $(which ld)
       shell: bash
       if: runner.os == 'macos'
