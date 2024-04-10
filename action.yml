@@ -24,6 +24,6 @@ runs:
         if [ "$(whoami)" = root ]; then SUDO=; else SUDO=sudo; fi
         brew install mold
         test ${{ inputs.make-default }} = true -a "$SUDO ln -sf /opt/homebrew/bin/mold /opt/homebrew/bin/ld"; true
-        echo $(which ld)
+        echo "/opt/homebrew/bin" >> $GITHUB_PATH
       shell: bash
       if: runner.os == 'macos'
